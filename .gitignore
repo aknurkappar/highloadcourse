@@ -1,0 +1,32 @@
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+env/
+
+# Environment variables
+.env
+
+# Database
+db.sqlite3
+
+# Logs
+*.log
+
+# Media and static files
+media/
+static/
+
+# PyCharm specific files
+.idea/
+.idea/workspace.xml
+
+# Migrations (optional)
+#migrations/
+
+# Front-end assets
+node_modules/
+dist/
