@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .models import Post
 from .forms import PostForm, CommentForm
+from django.contrib import messages
+
 
 def post_list(request):
     posts = Post.objects.all().order_by('-created_at')
@@ -45,6 +47,7 @@ def post_create(request):
 def post_edit(request, id):
     post = get_object_or_404(Post, id=id)
     if request.user != post.author:
+        messages.error(request, 'You are cannot edit this post.')
         return redirect('post_detail', id=post.id)
     if request.method == 'POST':
         form = PostForm(request.POST, instance=post)
@@ -58,8 +61,11 @@ def post_edit(request, id):
 @login_required
 def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
-    if request.user == post.author:
-        post.delete()
+    if request.user != post.author:
+        messages.error(request, 'You are cannot delete this post.')
+        return redirect('post_detail', id=post.id)
+    post.delete()
+    messages.success(request, 'Post deleted successfully.')
     return redirect('post_list')
 
 # User Authentication and Authorization
