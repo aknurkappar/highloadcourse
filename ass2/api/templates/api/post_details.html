@@ -1,0 +1,19 @@
+{% load cache %}
+
+<div>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>Published on: {{ post.created_at }}</p>
+
+    <h2>Last comments</h2>
+    <ul>
+        {% for comment in post.comments.all|slice:":3" %}
+            <li>
+                <strong>{{ comment.author }}</strong>: {{ comment.content }}
+                <small>Commented on: {{ comment.created_at }}</small>
+            </li>
+        {% empty %}
+            <li>No comments available</li>
+        {% endfor %}
+    </ul>
+</div>
