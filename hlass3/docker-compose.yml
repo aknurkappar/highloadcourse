@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  django1:
+    build: .
+    ports:
+      - "8001:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=api.settings
+  django2:
+    build: .
+    ports:
+      - "8002:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=api.settings
+  django3:
+    build: .
+    ports:
+      - "8003:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=api.settings

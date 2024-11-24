@@ -1,0 +1,25 @@
+ <h1>{{ post.title }}</h1>
+ <p>{{ post.content }}</p>
+ <p>Written by {{ post.author }} on {{ post.created_at }}</p>
+
+ <h2>Comments</h2>
+ <ul>
+     {% for comment in comments %}
+     <li>{{ comment.text }} - {{ comment.author }} on {{ comment.created_at }}</li>
+     {% endfor %}
+ </ul>
+
+ <h3>Leave a Comment</h3>
+ <form method="POST">
+     {% csrf_token %}
+     {{ comment_form.as_p }}
+     <button type="submit">Submit</button>
+ </form>
+
+ {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}

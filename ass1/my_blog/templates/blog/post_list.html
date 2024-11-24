@@ -1,0 +1,31 @@
+<h1>All Blog Posts</h1>
+<ul>
+    {% for post in posts %}
+    <li>
+        <a href="{% url 'post_detail' id=post.id %}">{{ post.title }}</a> - {{ post.created_at }}
+    </li>
+    {% endfor %}
+</ul>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}"> <  </a>
+        {% endif %}
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}">  > </a>
+        {% endif %}
+    </span>
+</div>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
